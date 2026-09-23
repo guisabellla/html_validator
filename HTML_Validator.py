@@ -42,6 +42,21 @@ def _extract_tags(html):
     '''
     >>> _extract_tags('Python <strong>rocks</strong>!')
     ['<strong>', '</strong>']
+
+    >>> _extract_tags('<a href="https://izbicki.me">link</a>')
+    ['<a>', '</a>']
+
+    >>> _extract_tags('<span class=bold id=test></span>')
+    ['<span>', '</span>']
+
+    >>> _extract_tags('<span class=bold id=test></span>')
+    ['<span>', '</span>']
+
+    >>> _extract_tags('<html lang=en><body id=main></body></html>')
+    ['<html>', '<body>', '</body>', '</html>']
+
+    >>> _extract_tags('<p style="color: red">hello</p>')
+    ['<p>', '</p>']
     '''
     tags = []
     i = 0
