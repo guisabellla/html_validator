@@ -9,7 +9,7 @@ def validate_html(html):
     False
     '''
     try:
-        tags = _extract_tags(text)
+        tags = _extract_tags(html)
     except ValueError:
         return False
 
@@ -49,9 +49,6 @@ def _extract_tags(html):
     >>> _extract_tags('<span class=bold id=test></span>')
     ['<span>', '</span>']
 
-    >>> _extract_tags('<span class=bold id=test></span>')
-    ['<span>', '</span>']
-
     >>> _extract_tags('<html lang=en><body id=main></body></html>')
     ['<html>', '<body>', '</body>', '</html>']
 
@@ -61,14 +58,14 @@ def _extract_tags(html):
     tags = []
     i = 0
 
-    while i < len(text):
-        if text[i] == '<':
-            close = text.find('>', i + 1)
+    while i < len(html):
+        if html[i] == '<':
+            close = html.find('>', i + 1)
 
             if close == -1:
                 raise ValueError('found < without matching >')
 
-            tag = text[i + 1:close]
+            tag = html[i + 1:close]
 
             if tag.startswith('/'):
                 name = tag[1:].split()[0]
